@@ -36,12 +36,12 @@ const UserForm = ({ errors, touched, values, status }) => {
         </FormGroup>
         <Label>
           {touched.tos && errors.tos && <p className="error">{errors.tos}</p>}
-          <Field type="checkbox" name="tos" />
+          <Field type="checkbox" className="box" name="tos" />
           Agree to Terms of Service
           <br />
         </Label>
         <br />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className>Submit</Button>
       </Form>
       {users.map(users => (
         <Card key={users.id}>
@@ -68,7 +68,10 @@ const FormikUserForm = withFormik({
     };
   },
   validationSchema: yup.object().shape({
-    name: yup.string().required("Name is required"),
+    name: yup
+      .string()
+      .max(10, "Your Name is to long")
+      .required("Name is required"),
     email: yup
       .string()
       .email("Enter a valid email address")
